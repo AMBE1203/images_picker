@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.chavesgu.images_picker">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.chavesgu.images_picker">
 
   <queries>
     <package android:name="${applicationId}"/>
@@ -15,5 +16,74 @@
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
   <uses-permission android:name="android.permission.INTERNET" />
+
+  <uses-sdk tools:overrideLibrary="androidx.camera.view,
+    androidx.camera:camera-camera2,
+    androidx.camera.camera2,androidx.camera.lifecycle,
+    androidx.camera.core" >
+  </uses-sdk>
+
+  <application>
+    <provider
+        android:name="com.chavesgu.images_picker.lib.PictureFileProvider"
+        android:authorities="${applicationId}.luckProvider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/file_paths" >
+      </meta-data>
+    </provider>
+
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PictureSelectorActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize" >
+    </activity>
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PictureSelectorWeChatStyleActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize" >
+    </activity>
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PictureSelectorCameraEmptyActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:theme="@style/Picture.Theme.Translucent" >
+    </activity>
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PictureCustomCameraActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize" >
+    </activity>
+
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PicturePreviewActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize" >
+    </activity>
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PictureSelectorPreviewWeChatStyleActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize" >
+    </activity>
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PictureVideoPlayActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:screenOrientation="sensor" >
+    </activity>
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PictureExternalPreviewActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize" >
+    </activity>
+
+    <activity
+        android:name="com.chavesgu.images_picker.lib.PicturePlayAudioActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize" >
+    </activity>
+
+    <activity
+        android:name="com.chavesgu.images_picker.ucrop.UCropActivity"
+        android:theme="@style/Base.Theme.NoActionBar" >
+    </activity>
+    <activity
+        android:name="com.chavesgu.images_picker.ucrop.PictureMultiCuttingActivity"
+        android:theme="@style/Base.Theme.NoActionBar" >
+    </activity>
+  </application>
 </manifest>
 

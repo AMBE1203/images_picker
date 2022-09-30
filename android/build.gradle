@@ -26,6 +26,11 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 31
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         minSdkVersion 21
         consumerProguardFiles 'consumer-proguard-rules.pro'
@@ -33,7 +38,11 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+
 }
+
+apply from: './config.gradle'
+
 
 dependencies {
 //    implementation project(':picture_library')
@@ -42,5 +51,17 @@ dependencies {
 //    implementation 'com.github.LuckSiege:PictureSelectorLight:v2.1.1'
 //    implementation 'io.github.lucksiege:pictureselector:v2.7.3-rc10'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation project(path: ':picture_library')
+//    implementation project(path: ':picture_library')
+
+    implementation "androidx.appcompat:appcompat:${cfgs.version_appcompat}"
+    implementation "androidx.recyclerview:recyclerview:${cfgs.version_recyclerview}"
+    implementation "androidx.activity:activity:${cfgs.activity_version}"
+    implementation "androidx.fragment:fragment:${cfgs.fragment_version}"
+    implementation "androidx.concurrent:concurrent-futures:${cfgs.futures_version}"
+    implementation "androidx.annotation:annotation-experimental:${cfgs.experimental_version}"
+    implementation "androidx.exifinterface:exifinterface:${cfgs.androidx_exifinterface_version}"
+    implementation "androidx.localbroadcastmanager:localbroadcastmanager:${cfgs.localbroadcastmanager}"
+    implementation "androidx.camera:camera-view:${cfgs.camerax_view}"
+    implementation "androidx.transition:transition:${cfgs.androidx_transition_version}"
+    implementation "androidx.camera:camera-lifecycle:${cfgs.camerax_version}"
 }

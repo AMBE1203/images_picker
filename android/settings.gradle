@@ -1,2 +1,3 @@
-include ':picture_library'
 rootProject.name = 'images_picker'
+//include ':picture_library'
+

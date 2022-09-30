@@ -2,12 +2,18 @@ package com.chavesgu.images_picker;
 
 import android.content.pm.ActivityInfo;
 
-import com.luck.picture.lib.PictureSelectionModel;
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
-import com.luck.picture.lib.language.LanguageConfig;
-import com.yalantis.ucrop.view.OverlayView;
+//import com.luck.picture.lib.PictureSelectionModel;
+//import com.luck.picture.lib.PictureSelector;
+//import com.luck.picture.lib.config.PictureConfig;
+//import com.luck.picture.lib.config.PictureMimeType;
+//import com.luck.picture.lib.language.LanguageConfig;
+//import com.yalantis.ucrop.view.OverlayView;
+
+import com.chavesgu.images_picker.lib.PictureSelectionModel;
+import com.chavesgu.images_picker.lib.config.PictureConfig;
+import com.chavesgu.images_picker.lib.config.PictureMimeType;
+import com.chavesgu.images_picker.lib.language.LanguageConfig;
+import com.chavesgu.images_picker.ucrop.view.OverlayView;
 
 import java.lang.reflect.Array;
 import java.util.HashMap;
