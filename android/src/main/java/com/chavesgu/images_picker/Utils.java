@@ -7,7 +7,7 @@ import android.content.pm.ActivityInfo;
 //import com.luck.picture.lib.config.PictureConfig;
 //import com.luck.picture.lib.config.PictureMimeType;
 //import com.luck.picture.lib.language.LanguageConfig;
-//import com.yalantis.ucrop.view.OverlayView;
+//import com.chavesgu.images_picker.ucrop.view.OverlayView;
 
 import com.chavesgu.images_picker.lib.PictureSelectionModel;
 import com.chavesgu.images_picker.lib.config.PictureConfig;
