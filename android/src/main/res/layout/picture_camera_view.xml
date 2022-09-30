@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.luck.picture.lib.photoview.PhotoView
+    <com.chavesgu.images_picker.lib.photoview.PhotoView
         android:id="@+id/image_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -48,7 +48,7 @@
         app:srcCompat="@drawable/picture_ic_flash_on" />
 
 
-    <com.luck.picture.lib.camera.view.CaptureLayout
+    <com.chavesgu.images_picker.lib.camera.view.CaptureLayout
         android:id="@+id/capture_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
