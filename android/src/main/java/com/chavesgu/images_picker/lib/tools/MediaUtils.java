@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+
 import androidx.exifinterface.media.ExifInterface;
 
 import com.chavesgu.images_picker.lib.PictureContentResolver;
@@ -144,7 +145,12 @@ public class MediaUtils {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            retriever.release();
+            try {
+                retriever.release();
+
+            } catch (Exception e) {
+
+            }
         }
         return mediaExtraInfo;
     }
@@ -169,7 +175,12 @@ public class MediaUtils {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            retriever.release();
+            try {
+                retriever.release();
+
+            } catch (Exception e) {
+
+            }
         }
         return mediaExtraInfo;
     }

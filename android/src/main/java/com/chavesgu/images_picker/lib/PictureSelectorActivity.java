@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -131,13 +132,27 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     protected void onResume() {
         super.onResume();
         if (isEnterSetting) {
-            if (PermissionChecker
-                            .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            boolean permission = true;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                permission = PermissionChecker
+                        .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                permission = PermissionChecker
+                        .checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) && PermissionChecker
+                        .checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO);
+            }
+            if (permission) {
                 if (mAdapter.isDataEmpty()) {
                     readLocalMedia();
                 }
             } else {
-                showPermissionsDialog(false, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, getString(com.chavesgu.images_picker.R.string.picture_jurisdiction));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    showPermissionsDialog(false, new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO}, getString(com.chavesgu.images_picker.R.string.picture_jurisdiction));
+                } else {
+                    showPermissionsDialog(false, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, getString(com.chavesgu.images_picker.R.string.picture_jurisdiction));
+
+                }
             }
             isEnterSetting = false;
         }
@@ -318,11 +333,29 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      * load All Data
      */
     private void loadAllMediaData() {
-        if (PermissionChecker
-                .checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+        boolean permission = true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            permission = PermissionChecker
+                    .checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permission = PermissionChecker
+                    .checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) && PermissionChecker
+                    .checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO);
+        }
+
+        if (permission) {
             readLocalMedia();
         } else {
-            PermissionChecker.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
+
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                PermissionChecker.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO}, PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
+            } else {
+                PermissionChecker.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
+
+            }
+
         }
     }
 

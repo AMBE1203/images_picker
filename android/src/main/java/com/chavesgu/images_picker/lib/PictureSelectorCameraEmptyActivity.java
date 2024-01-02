@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import android.os.Build;
 
 import com.chavesgu.images_picker.lib.config.PictureConfig;
 import com.chavesgu.images_picker.lib.config.PictureMimeType;
@@ -63,7 +64,16 @@ public class PictureSelectorCameraEmptyActivity extends PictureBaseActivity {
         if (!config.isUseCustomCamera) {
             setActivitySize();
             if (savedInstanceState == null) {
-                if (PermissionChecker.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                boolean permission = true;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                    permission = PermissionChecker
+                            .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    permission = PermissionChecker
+                            .checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) && PermissionChecker
+                            .checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO);
+                }
+                if (permission) {
 
                     if (PictureSelectionConfig.onCustomCameraInterfaceListener != null) {
                         if (config.chooseMode == PictureConfig.TYPE_VIDEO) {
@@ -75,8 +85,14 @@ public class PictureSelectorCameraEmptyActivity extends PictureBaseActivity {
                         onTakePhoto();
                     }
                 } else {
-                    PermissionChecker.requestPermissions(this, new String[]{
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        PermissionChecker.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO}, PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
+                    } else {
+                        PermissionChecker.requestPermissions(this, new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
+                    }
+
                 }
             }
         }
